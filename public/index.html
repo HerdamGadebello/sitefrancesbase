@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Educacional</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-image"></div>
+    
+    <div id="login-screen" class="screen active">
+        <div class="login-container">
+            <img src="/assets/LOGOOFICIAL.png" alt="Logo" class="logo">
+            <h1>Portal Educacional</h1>
+            <div class="btn-group">
+                <button onclick="showLoginForm('professor')" class="btn professor-btn">
+                    <i class="fas fa-chalkboard-teacher"></i> Professor
+                </button>
+                <button onclick="showLoginForm('aluno')" class="btn aluno-btn">
+                    <i class="fas fa-user-graduate"></i> Aluno
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-form-screen" class="screen">
+        <div class="login-container">
+            <img src="/assets/LOGOOFICIAL.png" alt="Logo" class="logo">
+            <h2>Acessar Sistema</h2>
+            <form id="loginForm" onsubmit="event.preventDefault(); login()">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Usuário" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Senha" required>
+                </div>
+                <button type="submit" class="btn login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+            </form>
+            <div id="login-message" class="message"></div>
+            <button onclick="showLoginScreen()" class="btn back-btn">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </button>
+        </div>
+    </div>
+
+    <div id="professor-area" class="screen">
+        <!-- Conteúdo será preenchido via JavaScript -->
+    </div>
+
+    <div id="aluno-area" class="screen">
+        <!-- Conteúdo será preenchido via JavaScript -->
+    </div>
+
+    <script src="/site.js"></script>
+</body>
+</html>
