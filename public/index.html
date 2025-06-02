@@ -5,21 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Educacional</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <div class="background-image"></div>
-    
     <div id="login-screen" class="screen active">
         <div class="login-container">
             <img src="/assets/LOGOOFICIAL.png" alt="Logo" class="logo">
-            <h1>Portal Educacional</h1>
+            <h2>Portal Educacional</h2>
             <div class="btn-group">
-                <button onclick="showLoginForm('professor')" class="btn professor-btn">
+                <button class="btn professor-btn" onclick="showLoginForm('professor')">
                     <i class="fas fa-chalkboard-teacher"></i> Professor
                 </button>
-                <button onclick="showLoginForm('aluno')" class="btn aluno-btn">
+                <button class="btn aluno-btn" onclick="showLoginForm('aluno')">
                     <i class="fas fa-user-graduate"></i> Aluno
                 </button>
             </div>
@@ -30,33 +28,26 @@
         <div class="login-container">
             <img src="/assets/LOGOOFICIAL.png" alt="Logo" class="logo">
             <h2>Acessar Sistema</h2>
-            <form id="loginForm" onsubmit="event.preventDefault(); login()">
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" id="username" placeholder="Usuário" required>
-                </div>
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" id="password" placeholder="Senha" required>
-                </div>
-                <button type="submit" class="btn login-btn">
-                    <i class="fas fa-sign-in-alt"></i> Entrar
-                </button>
-            </form>
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="username" placeholder="Usuário" autocomplete="off">
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="Senha">
+            </div>
             <div id="login-message" class="message"></div>
-            <button onclick="showLoginScreen()" class="btn back-btn">
+            <button class="btn login-btn" onclick="login()">
+                <i class="fas fa-sign-in-alt"></i> Entrar
+            </button>
+            <button class="btn back-btn" onclick="showLoginScreen()">
                 <i class="fas fa-arrow-left"></i> Voltar
             </button>
         </div>
     </div>
 
-    <div id="professor-area" class="screen">
-        <!-- Conteúdo será preenchido via JavaScript -->
-    </div>
-
-    <div id="aluno-area" class="screen">
-        <!-- Conteúdo será preenchido via JavaScript -->
-    </div>
+    <div id="professor-area" class="screen"></div>
+    <div id="aluno-area" class="screen"></div>
 
     <script src="/site.js"></script>
 </body>

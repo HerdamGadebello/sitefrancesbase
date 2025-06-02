@@ -8,7 +8,7 @@ function showScreen(screenId) {
 }
 
 function showLoginForm(role) {
-    document.getElementById('username').value = role;
+    document.getElementById('username').value = role === 'professor' ? 'hermesdamiaobello' : 'dommanuel';
     showScreen('login-form-screen');
 }
 
@@ -19,10 +19,6 @@ function showLoginScreen() {
 async function login() {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value;
-    const messageDiv = document.getElementById('login-message');
-
-    messageDiv.textContent = '';
-    messageDiv.className = 'message';
 
     try {
         const response = await fetch('/login', {
@@ -33,7 +29,7 @@ async function login() {
 
         const data = await response.json();
 
-        if (!response.ok) {
+        if (!response.ok || !data.success) {
             throw new Error(data.error || 'Credenciais inválidas');
         }
 
@@ -50,8 +46,11 @@ async function login() {
         }
 
     } catch (error) {
-        messageDiv.textContent = error.message;
-        messageDiv.classList.add('error');
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro no Login',
+            text: error.message,
+        });
         console.error('Erro no login:', error);
     }
 }
@@ -166,8 +165,11 @@ async function uploadFile(type) {
     const file = input.files[0];
     const status = document.getElementById(`${type}-upload-status`);
     if (!file) {
-        status.textContent = 'Selecione um arquivo primeiro!';
-        status.className = 'upload-status error';
+        Swal.fire({
+            icon: 'warning',
+            title: 'Aviso',
+            text: 'Selecione um arquivo primeiro!'
+        });
         return;
     }
 
@@ -184,11 +186,21 @@ async function uploadFile(type) {
         if (!response.ok || !data.success) throw new Error(data.error || 'Erro no upload');
         status.textContent = 'Enviado com sucesso!';
         status.className = 'upload-status success';
+        Swal.fire({
+            icon: 'success',
+            title: 'Sucesso',
+            text: 'Arquivo enviado com sucesso!'
+        });
         input.value = '';
         loadFiles(type, `${type}-list`);
     } catch (err) {
         status.textContent = 'Erro: ' + err.message;
         status.className = 'upload-status error';
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Erro ao enviar o arquivo: ' + err.message
+        });
     }
 }
 
@@ -228,6 +240,11 @@ async function loadFiles(type, elementId) {
             </div>
         `).join('');
     } catch (err) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Erro ao carregar arquivos: ' + err.message
+        });
         console.error('Erro ao carregar arquivos:', err);
     }
 }
@@ -250,25 +267,56 @@ async function loadAlunoFiles(type, elementId) {
             </div>
         `).join('');
     } catch (err) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Erro ao carregar arquivos do aluno: ' + err.message
+        });
         console.error('Erro ao carregar arquivos do aluno:', err);
     }
 }
 
 async function deleteFile(type, filename) {
-    if (!confirm(`Deseja excluir "${filename}"?`)) return;
+    const result = await Swal.fire({
+        title: `Deseja excluir "${filename}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Excluir',
+        cancelButtonText: 'Cancelar'
+    });
+    if (!result.isConfirmed) return;
+
     try {
         const res = await fetch(`/delete/${type}/${filename}`, { method: 'DELETE' });
         const data = await res.json();
         if (!res.ok || !data.success) throw new Error(data.error || 'Erro ao excluir');
+        Swal.fire({
+            icon: 'success',
+            title: 'Sucesso',
+            text: 'Arquivo excluído com sucesso!'
+        });
         loadFiles(type, `${type}-list`);
     } catch (err) {
-        alert('Erro: ' + err.message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Erro ao excluir: ' + err.message
+        });
     }
 }
 
 async function renameFile(type, filename) {
-    const newName = prompt('Novo nome do arquivo:', filename);
-    if (!newName || newName === filename) return;
+    const { value: newName } = await Swal.fire({
+        title: 'Renomear arquivo',
+        input: 'text',
+        inputValue: filename,
+        showCancelButton: true,
+        inputValidator: (value) => {
+            if (!value) return 'O nome não pode estar vazio!';
+            if (value === filename) return 'O nome deve ser diferente!';
+        }
+    });
+    if (!newName) return;
 
     try {
         const res = await fetch(`/rename/${type}`, {
@@ -278,9 +326,18 @@ async function renameFile(type, filename) {
         });
         const data = await res.json();
         if (!res.ok || !data.success) throw new Error(data.error || 'Erro ao renomear');
+        Swal.fire({
+            icon: 'success',
+            title: 'Sucesso',
+            text: 'Arquivo renomeado com sucesso!'
+        });
         loadFiles(type, `${type}-list`);
     } catch (err) {
-        alert('Erro: ' + err.message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Erro ao renomear: ' + err.message
+        });
     }
 }
 

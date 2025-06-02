@@ -120,7 +120,6 @@ body {
     margin-top: 20px;
 }
 
-/* CARTÕES DE ARQUIVOS */
 .file-item, .material-item {
     background: var(--light);
     padding: 15px;
@@ -158,7 +157,6 @@ body {
     gap: 8px;
 }
 
-/* BOTÕES DE AÇÃO */
 .download-btn, .delete-btn, .rename-btn {
     display: inline-flex;
     align-items: center;
@@ -200,7 +198,6 @@ body {
     background: #c0392b;
 }
 
-/* ÁREA DE UPLOAD */
 .upload-area {
     padding: 20px;
     border: 2px dashed #ddd;
@@ -287,7 +284,6 @@ input[type="file"] {
     display: none;
 }
 
-/* BOTÕES GERAIS */
 .btn {
     padding: 12px 24px;
     border: none;
@@ -324,12 +320,6 @@ input[type="file"] {
     margin-top: 15px;
 }
 
-.logout-btn {
-    background: var(--secondary);
-    color: var(--light);
-}
-
-/* INPUTS */
 .input-group {
     display: flex;
     align-items: center;
@@ -353,7 +343,6 @@ input[type="file"] {
     outline: none;
 }
 
-/* OUTROS */
 .btn-group {
     display: flex;
     gap: 15px;
@@ -390,36 +379,56 @@ input[type="file"] {
     outline: none;
 }
 
-/* RESPONSIVO */
+/* Media Queries para Responsividade */
 @media (max-width: 768px) {
     .login-container {
         padding: 30px;
         margin: 20px;
     }
-
     .tabs {
         flex-direction: column;
     }
-
     .btn-group {
         flex-direction: column;
     }
-
     .header {
         flex-direction: column;
         gap: 15px;
     }
-
     .file-upload {
         flex-direction: column;
     }
-
     .file-item, .material-item {
         flex-direction: column;
         align-items: flex-start;
     }
-
     .file-actions {
         margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 20px;
+        margin: 10px;
+    }
+    .screen {
+        padding: 10px;
+    }
+    .btn, .file-select-btn, .upload-btn, .download-btn, .delete-btn, .rename-btn {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+    .input-group input {
+        font-size: 14px;
+    }
+    .file-name {
+        font-size: 14px;
+    }
+    .header-logo {
+        width: 100px;
+    }
+    .logo {
+        width: 150px;
     }
 }
