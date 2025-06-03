@@ -81,7 +81,7 @@ function loadProfessorArea() {
             <div id="aulas-list" class="file-list"></div>
         </div>
         <div id="exercicios" class="tab-content">
-            ${renderUploadArea('exercicios', 'Exercício', '.pdf')}
+            ${renderUploadArea('exercicios', 'Exercício', '.pdf,.doc,.docx,.ppt,.pptx,.html,.mp3,.mp4,.xlsx,.csv,.txt,.zip')}
             <div id="exercicios-list" class="file-list"></div>
         </div>
         <div id="anexos" class="tab-content">
